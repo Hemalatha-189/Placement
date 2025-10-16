@@ -1,0 +1,32 @@
+1) Search for an element in LL(Once create, insert is done, this should be easy)
+class Solution {
+  public:
+    bool searchKey(Node* head, int key) {
+        if(head== NULL) return false;
+        
+        Node* temp=head;
+        while(temp != NULL){
+            if(temp->data == key)return true;
+            temp=temp->next;
+        }
+        return false;
+        
+    }
+};
+ 2) Reverse a LL
+class Solution {
+  public:
+    Node* reverseList(Node* head) {
+        // code here
+        Node* curr=head;
+        Node* prev=NULL;
+        while(curr != NULL){
+            Node* nextnode=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nextnode;
+        }
+        return prev;
+    }
+};
+
