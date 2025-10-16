@@ -30,3 +30,680 @@ class Solution {
     }
 };
 
+3) Check if LL is a Palindrome
+Node* reverse(Node *head){
+    Node* prev=NULL;
+    Node* curr=head;
+    while(curr!= NULL){
+        Node* nextnode=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nextnode;
+        
+    }
+    return prev;
+}
+
+class Solution {
+  public:
+    bool isPalindrome(Node *head) {
+        Node* s=head;
+        Node* f=head;
+        while(f != NULL && f->next != NULL){
+            s=s->next;
+            f=f->next->next;
+        }
+        s=reverse(s);
+        f=head;
+        while(s != NULL){
+            if(s->data != f->data)return false;
+            s=s->next;
+            f=f->next;
+        }
+        return true;
+        
+    }
+};
+
+4) Middle element of LL 
+class Solution {
+  public:
+    Node *insertInMiddle(Node *head, int x) {
+      
+       Node* newNode=new Node(x);
+       if(head==NULL || head->next == NULL){
+           return newNode;
+       }
+       
+       Node* f=head->next;
+        Node* s=head;
+        while (f != NULL && f->next !=NULL){
+            f=f->next->next;
+            s=s->next;
+        }
+        newNode->next=s->next;
+        s->next=newNode;
+        return head;   
+    }  
+};
+
+5) Find the intersection point of Y LL
+class Solution {
+  public:
+    Node* intersectPoint(Node* head1, Node* head2) {
+        //  Code Here
+       while(head1== NULL || head2==NULL )return NULL;
+       Node* d1=head1;
+       Node* d2=head2;
+       while(d1 != d2){
+          d1=d1->next;
+          d2=d2->next;
+          if(d1==NULL) d1=head2;
+          if(d2==NULL) d2=head1;
+          
+       } 
+       return d1;
+    }
+};
+
+6) Union and Intersection of LL
+class Solution {
+  public:
+    struct Node* makeUnion(struct Node* head1, struct Node* head2) {
+       if(head1== NULL)return head2;
+       if(head2 == NULL)return head1;
+       set<int> s;
+       Node* temp=head1;
+       while(temp != NULL){
+           s.insert(temp->data);
+           temp=temp->next;
+       }
+       temp=head2;
+       while(temp !=NULL){
+           s.insert(temp->data);
+           temp=temp->next;
+       }
+       Node* newnode=NULL;
+       Node* tail=NULL;
+       for(int val: s){
+           Node* node=new Node(val);
+           if(newnode == NULL){
+               newnode=node;
+               tail=node;
+           }
+           else{
+               tail->next= node;
+               tail= node;
+           }
+         
+           
+       }
+       return newnode;
+        
+    }
+};
+7) Delete without head pointer
+
+class Solution {
+  public:
+    void deleteNode(Node* del_node) {
+        Node* temp=del_node->next;
+        del_node->data= temp->data;
+        del_node->next=del_node->next->next;
+        
+        
+    }
+};
+
+8) Count pairs with given sum
+class Solution {
+  public:
+   
+    int countPairs(struct Node* head1, struct Node* head2, int x) {
+        unordered_set<int>st2;
+        Node* temp=head2;
+        while(temp != NULL){
+            st2.insert(temp->data);
+            temp=temp->next;
+        }
+        temp=head1;
+        int count=0;
+        while(temp != NULL){
+            int res = x-temp->data;
+            if(st2.find(res) != st2.end()){
+                count++;
+            }
+            temp=temp->next;
+        }
+        return count;
+    }
+};
+
+9) Detect loop in LL
+class Solution {
+  public:
+    bool detectLoop(Node* head) {
+        if(!head) return false;
+        Node* f=head;
+        Node* s=head;
+        while(f->next !=NULL && f->next->next != NULL){
+            s=s->next;
+            f=f->next->next;
+            if(s==f) return true;
+            
+        }
+        return false;
+        
+    }
+};
+
+10) Find length of loop in LL
+class Solution {
+  public:
+    int lengthOfLoop(Node *head) {
+        Node* s=head;
+        Node* f=head;
+        
+        int count=1;
+        while(f != NULL && f->next != NULL){
+            s=s->next;
+            f=f->next->next;
+            if(s==f){
+                Node* temp=s->next;
+                while(temp != s){
+                    count++;
+                    temp=temp->next;
+                }
+                return count;
+            
+            }
+            
+        }
+        return 0;
+        
+        
+    }
+};
+
+11) Find the starting point of loop
+class Solution {
+  public:
+    int cycleStart(Node* head) {
+       Node* f=head;
+       Node* s=head;
+       while(f != NULL && f->next != NULL){
+           s=s->next;
+           f=f->next->next;
+       
+       if(s==f){
+           f=head;
+           while(s != f){
+               s=s->next;
+               f=f->next;
+           }
+           return s->data;
+       }
+       }
+       return -1;
+       
+        
+    }
+};
+
+12) Remove the loop
+class Solution {
+  public:
+    void removeLoop(Node* head) {
+        Node* f=head;
+        Node* s=head;
+        while(f != NULL && f->next != NULL){
+            s=s->next;
+            f=f->next->next;
+            if(s ==f){
+                break;
+            }
+            
+        }
+        if(s != f)return;
+        s=head;
+        if(s == f){
+            
+            while(f->next != s){
+                f=f->next;
+            }
+        }
+        else{
+            while(s->next != f->next){
+                s=s->next;
+                f=f->next;
+            }
+            
+        }
+        f->next=NULL;
+        
+        
+        
+    }
+};
+13) Sort 0s, 1s, 2s in LL
+
+class Solution {
+  public:
+    Node* segregate(Node* head) {
+        if(!head || !head->next)return head;
+        Node* zerod=new Node(0);
+        Node* oned=new Node(0);
+        Node* twod=new Node(0);
+        Node* zero=zerod;
+        Node* one=oned;
+        Node* two=twod;
+        Node* curr=head;
+        while(curr != NULL){
+            if(curr->data ==0){
+                zero->next=curr;
+                zero=zero->next;
+                
+            }
+            else if(curr->data == 1){
+                one->next=curr;
+                one=one->next;
+                
+            }else{
+                two->next=curr;
+                two=two->next;
+                
+            }
+            curr=curr->next;
+        }
+        zero->next=oned->next ? oned->next : twod->next;
+        one->next=twod->next;
+        two->next=NULL;
+        head=zerod->next;
+        delete(zerod);
+        delete(oned);
+        delete(twod);
+        return head;
+        
+    }
+};
+14) Pairwise swap elements
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(head == NULL || head->next == NULL)return head;
+        ListNode* temp=head;
+        while(temp != NULL && temp->next != NULL){
+            swap(temp->val,temp->next->val);
+            temp=temp->next->next;
+
+        }
+        return head;
+        
+    }
+};
+
+15) Remove occurence of duplicates in  unsorted LL
+class Solution {
+  public:
+    Node *removeDuplicates(Node *head) {
+        if(!head) return head;
+        Node* curr=head;
+        Node* prev=NULL;
+        unordered_set<int> st;
+        while(curr != NULL){
+            if(st.find(curr->data) != st.end()){
+                prev->next=curr->next; 
+                delete(curr);
+                
+            }
+            else{
+                st.insert(curr->data);
+                prev=curr;
+            }
+            curr=prev->next;
+        }
+        return head;
+        
+        
+    }
+};
+
+16) Remove occurence of duplicates in sorted &  LL
+class Solution {
+  public:
+    Node* removeDuplicates(Node* head) {
+        if(! head) return NULL;
+        Node* temp=head;
+        Node* prev=NULL;
+        unordered_set<int> s;
+        while(temp !=NULL){
+                if (s.find(temp->data) != s.end()){
+                    prev->next=temp->next;
+                    delete(temp);
+                    temp=prev->next;
+                }
+                
+            else{
+                s.insert(temp->data);
+                prev= temp;
+                temp=temp->next;
+            }
+            
+        }
+        return head;
+    }
+};
+17) Seggregate even and odd nodes in LL
+class Solution {
+  public:
+    Node* divide(Node* head) {
+        
+        if(head == NULL && head->next== NULL) return head;
+        Node* evens=NULL;
+        Node* evenend = NULL;
+        Node* odds=NULL;
+        Node* oddend=NULL;
+        Node* temp=head;
+        
+        while(temp != NULL){
+            int val=temp->data;
+            if(val % 2==0){
+                if(evens == NULL){
+                    evens=evenend=temp;
+                }
+                else{
+                    evenend->next=temp;
+                    evenend=evenend->next;
+                }
+                
+            }
+            else{
+                if(odds==NULL){
+                    odds=oddend=temp;
+                }
+                else{
+                    oddend->next=temp;
+                    oddend=oddend->next;
+                }
+            }
+            temp=temp->next;
+        }
+        if(evens == NULL)
+            return odds;
+        
+            
+        evenend->next=odds;
+        oddend->next=NULL;
+        return  evens;
+        
+    }
+};
+
+18) Add 1 to a number represented as LL
+class Solution {
+  public:
+    int helper(Node* temp){
+        if(temp == NULL){
+            return 1;
+        }
+        int carry=helper(temp->next);
+        int sum= temp->data + carry;
+        temp->data = sum % 10;
+        return sum / 10;
+            
+        
+    }
+    Node* addOne(Node* head) {
+        int carry = helper(head);
+        if(carry == 1){
+            Node* newNode= new Node(1);
+            newNode->next=head;
+            head= newNode;
+        }
+        return head;
+           
+   }
+    
+};
+19) Add 2 numbers represented as LL (for reversed refer GFG)
+Node* reverse(Node* head){
+    Node* curr=head;
+    Node* prev=NULL;
+    while(curr != NULL){
+        Node* nextnode=curr->next;
+        curr->next= prev;
+        prev=curr;
+        curr=nextnode;
+    }
+    return prev;
+}
+class Solution {
+  public:
+    Node* addTwoLists(Node* head1, Node* head2) {
+       if(!head1)return head2;
+       if(!head2)return head1;
+       head1=reverse(head1);
+       head2=reverse(head2);
+       Node* l1=head1;
+       Node* l2=head2;
+       Node* dummy=new Node(0);
+       Node* temp=dummy;
+       int carry=0;
+       while(l1 != NULL || l2 != NULL || carry){
+           int sum=carry;
+           if(l1 != NULL){
+               sum += l1->data;
+               l1=l1->next;
+               
+           }
+           if(l2 != NULL){
+               sum += l2->data;
+               l2=l2->next;
+               
+           }
+           carry= sum /10;
+           Node* newnode=new Node(sum % 10);
+           temp->next=newnode;
+           temp=temp->next;
+           
+           
+       }
+       return reverse(dummy->next);
+       
+    }
+};
+20) Reorder List
+Node* reverse(Node* head){
+    Node* curr=head;
+    Node* prev=NULL;
+    while(curr != NULL){
+        Node* nextnode=curr->next;
+        curr->next= prev;
+        prev=curr;
+        curr=nextnode;
+    }
+    return prev;
+}
+class Solution {
+  public:
+    void reorderList(Node* head) {
+       Node* f=head;
+       Node* s=head;
+       while(f != NULL && f->next != NULL){
+           f=f->next->next;
+           s=s->next;
+       }
+       Node* second =reverse(s->next);
+       s->next= NULL;
+       Node* first=head;
+       while(second != NULL){
+           Node* t1=first->next;;
+           Node* t2=second->next;
+           first->next=second;
+           second->next=t1;
+           first=t1;
+           second=t2;
+           
+       }
+        
+    }
+};
+21) 	Flattening a LL
+class Solution {
+  public:
+    Node* mergesort(Node* a,Node* b){
+        Node* temp=new Node(0);
+        Node* res=temp;
+        while(a != NULL && b!= NULL){
+            if( a->data<b->data){
+                temp->bottom=a;
+                temp=temp->bottom;
+                a=a->bottom;
+            }
+            else{
+                temp->bottom=b;
+                temp=temp->bottom;
+                b=b->bottom;
+                
+            }
+        }
+        if(a != NULL)temp->bottom =a;
+        else temp->bottom =b;
+        
+        return res->bottom;
+        
+    }
+    Node *flatten(Node *root) {
+        // Your code here
+        if(root==NULL || root->next == NULL) return root;
+        root->next=flatten(root->next);
+        root=mergesort(root,root->next);
+        return root;
+    }
+    
+    
+};
+
+22) Delete nodes having greater value on right
+class Solution {
+  public:
+    Node* reverse(Node* head){
+        Node* prev=NULL;
+        Node* curr=head;
+        while(curr != NULL){
+            Node* next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+    Node *compute(Node *head) {
+        if(head == NULL || head->next == NULL)return head;
+        head=reverse(head);
+        Node* curr=head;
+        int maxfar=curr->data;
+        while(curr != NULL && curr->next != NULL){
+            if(curr->next->data < maxfar){
+                Node* del=curr->next;
+                curr->next=curr->next->next;
+                delete(del);
+                
+            }
+            else{
+                curr=curr->next;
+                maxfar=curr->data;
+            }
+        }
+        head=reverse(head);
+        return head;
+        
+    }
+};
+23) Delete N nodes after M nodes
+class Solution {
+  public:
+    Node* linkdelete(Node* head, int n, int m) {
+        Node* curr=head;
+        while(curr != NULL){
+            for(int i=1;i<m && curr != NULL; i++){
+            curr=curr->next;
+        }
+            if(curr==NULL)break;
+            Node* temp=curr->next;
+            for(int i=0;i<n && temp != NULL;i++){
+                
+                Node* del=temp;
+                temp=temp->next;
+                delete(del);
+            }
+            curr->next=temp;
+            curr=temp;
+        
+        
+            
+        }
+        return head;
+        
+        
+    }
+};
+24) Clone a LL
+class Solution {
+  public:
+    Node* cloneLinkedList(Node* head) {
+        if(head == NULL) return NULL;
+        Node* temp=head;
+        while(temp != NULL){
+            Node* copynode= new Node(temp->data);
+            copynode->next =temp;
+            temp->next=copynode;
+            temp=temp->next->next;
+        }
+        temp=head;
+        while(temp !=NULL){
+            if(temp->next !=NULL){
+                temp->next->random= temp->random ? temp->random->next : NULL;
+            }
+
+            
+        }
+        temp=head;
+        Node* dummynode=new Node(-1);
+        Node* res=dummynode;
+        while(temp != NULL){
+            res->next=temp->next;
+            temp->next=temp->next ? temp->next->next : NULL;
+            res=res->next;
+            temp=temp->next;
+        }
+        return dummynode->next;
+        
+    }
+};
+25) DOUBLY LINKEDLIST
+Reverse a Doubly Linked List
+class Solution {
+  public:
+    Node *reverse(Node *head) {
+        if(head == NULL) return NULL;
+        Node* temp=head;
+        stack<int> s;
+        while(temp!= NULL){
+            s.push(temp->data);
+            temp=temp->next;
+        }
+        temp=head;
+        while(temp !=NULL){
+            temp->data=s.top();
+            s.pop();
+            temp=temp->next;
+        }
+        return head;
+        
+        
+    }
+};
+26) 
+
+
