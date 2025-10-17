@@ -1,1 +1,29 @@
+1) The program must accept two integers X and Y as the input. The program must print an integer C whose binary representation 
+indicates the same bits at the odd positions from LSB (Least Significant Bit) of the integers X and Y. 
+If there are no bits same at odd positions, then the program must print -1 as the output.
+Input:109 107
+Output:5
+109 -> 1101101
+107 -> 1101011
+x, y = map(int, input().split())
+bx = bin(x)[2:]
+by = bin(y)[2:]
 
+# Pad both binary strings to the same length
+maxlen = max(len(bx), len(by))
+bx = bx.zfill(maxlen) (zfill means used to compensate the 0s in the binary value)
+by = by.zfill(maxlen)
+
+res = []
+# Traverse from LSB to MSB (rightmost to leftmost)
+for i in range(maxlen-1, -1, -1):
+    pos = maxlen - i  # Position from LSB (1-based)
+    if pos % 2 == 1:  # Odd positions only
+        if bx[i] == by[i]:
+            res.append(bx[i])
+
+if not res:
+    print(-1)
+else:
+    # Since we traverse from LSB to MSB, reverse and join to form the correct binary number
+    print(int(''.join(res[::-1]), 2))  # reverse to go from MSB to LSB
