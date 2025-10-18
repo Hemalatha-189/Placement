@@ -27,3 +27,37 @@ if not res:
 else:
     # Since we traverse from LSB to MSB, reverse and join to form the correct binary number
     print(int(''.join(res[::-1]), 2))  # reverse to go from MSB to LSB
+
+2) Given three sorted arrays A, B, and C, merge them into one sorted array. For each number in the merged result,
+print the original array and its index (as a0, b1, c2, etc.).
+
+Sample Input
+
+5
+10 20 50 90 100
+4
+15 25 35 40
+6
+5 30 39 45 60 98
+Sample Output
+c0 a0 b0 a1 b1 c1 b2 c2 b3 c3 a2 c4 a3 c5 a4
+
+n1 = int(input())
+arr1 = list(map(int, input().split()))
+n2 = int(input())
+arr2 = list(map(int, input().split()))
+n3 = int(input())
+arr3 = list(map(int, input().split()))
+
+combined = []
+for i, val in enumerate(arr1):
+    combined.append((val, f"a{i}"))
+for i, val in enumerate(arr2):
+    combined.append((val, f"b{i}"))
+for i, val in enumerate(arr3):
+    combined.append((val, f"c{i}"))
+
+combined.sort()  
+res = [idx for val, idx in combined]
+print(' '.join(res))
+
