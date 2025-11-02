@@ -704,6 +704,93 @@ class Solution {
         
     }
 };
-26) 
+26) In C detect loop:
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode= (Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+    
+}
+bool delete_node(Node* head){
+    Node* s=head;
+    Node* f=head;
+    while(f != NULL &&  f ->next != NULL){
+        s=s->next;
+        f=f->next;
+        if(f==s)return true;
+    }
+    return false;
+    
+    
+}
+
+
+int main(){
+    Node* head=create(10);
+    head->next= create(20);
+    head->next->next=create(30);
+    head->next->next->next=head->next;
+    if(delete_node(head)){
+        printf("detected");
+    }
+    else{
+        printf("Not detected");
+    }
+    
+    return 0;
+}
+27) Length of the loop in C:
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode= (Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+    
+}
+int delete_node(Node* head){
+    Node* s=head;
+    Node* f=head;
+    int count=1;
+    while(f != NULL &&  f ->next != NULL){
+        s=s->next;
+        f=f->next;
+        if(f==s){
+            Node* temp=s->next;
+            while(temp != s){
+                count++;
+                temp=temp->next;
+            }
+            return count;
+        }
+    }
+    return 0;
+    
+}
+
+int main(){
+    Node* head=create(10);
+    head->next= create(20);
+    head->next->next=create(30);
+    head->next->next->next=head->next;
+    delete_node(head);
+    int l=delete_node(head);
+    printf("%d", l);
+    return 0;
+}
 
