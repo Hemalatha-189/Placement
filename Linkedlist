@@ -794,3 +794,67 @@ int main(){
     return 0;
 }
 
+28) Remove the loop:
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode= (Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+}
+void print(Node* head){
+    Node* temp=head;
+    while(temp != NULL){
+        printf("%d ->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+}
+Node* loopstart(Node* head){
+    Node* f=head;
+    Node* s=head;
+    while(f != NULL && f->next != NULL){
+        f=f->next->next;
+        s=s->next;
+        if(f==s){
+          break;
+        }
+    }
+    
+        s= head;
+        if( f==s){
+            while(f->next != s){
+                f=f->next;
+            }
+        }
+        else{
+            while(f->next != s->next){
+                f=f->next;
+                s=s->next;
+            }
+        }
+        return f->next = NULL;
+    
+}
+int main(){
+    Node* head=create(1);
+    head->next=create(2);
+    head->next->next=create(3);
+    head->next->next->next=create(4);
+    head->next->next->next->next=create(5);
+    
+    head->next->next->next->next->next=head->next;
+    loopstart(head);
+    print(head);
+    
+    
+    
+    //print(head);
+    return 0;
+    
+}
