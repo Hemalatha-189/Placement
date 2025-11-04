@@ -858,3 +858,69 @@ int main(){
     return 0;
     
 }
+
+29) Delete the N node from largest on the right:
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+}
+Node* print(Node* head){
+    Node* temp=head;
+    while(temp != NULL){
+        printf("%d ->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+}
+Node* reverse(Node* head){
+    Node* prev=NULL;
+    Node* curr=head;
+    while(curr !=NULL){
+        Node* nextnode=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nextnode;
+    }
+    return prev;
+}
+Node* deletenode(Node* head){
+    if(head == NULL || head->next == NULL)return head;
+    head=reverse(head);
+    Node* curr= head;
+    int maxfar=curr->data;
+    while(curr != NULL && curr->next != NULL){
+        if(curr->next->data < maxfar){
+            Node* del=curr->next;
+            curr->next=curr->next->next;
+            free(del);
+        }else{
+            curr=curr->next;
+            maxfar=curr->data;
+        }
+    }
+    head=reverse(head);
+    return head;
+   
+}
+int main(){
+    Node* head=create(10);
+    head->next=create(20);
+    head->next->next=create(30);
+    head->next->next->next=create(40);
+    head->next->next->next->next=create(50);
+    head->next->next->next->next->next=create(60);
+    
+    
+    head= deletenode(head);
+    print(head);
+    
+}
