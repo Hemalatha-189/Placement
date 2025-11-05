@@ -924,3 +924,39 @@ int main(){
     print(head);
     
 }
+
+Linkedlist Basics in C:
+1) Add at the front:
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+}
+void display(Node* head){
+    Node* temp=head;
+    while(temp !=NULL){
+        printf("%d ->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+}
+int main(){
+    Node* head=create(10);
+    head->next=create(20);
+    head->next->next=create(30);
+
+    Node* newnode=create(5);
+    newnode->next=head;
+    head=newnode;
+    display(head);
+    return 0;
+    
+}
