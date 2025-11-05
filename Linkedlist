@@ -960,3 +960,81 @@ int main(){
     return 0;
     
 }
+
+2) Add at the end:
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+}
+void display(Node* head){
+    Node* temp=head;
+    while(temp !=NULL){
+        printf("%d ->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+}
+int main(){
+    Node* head=create(10);
+    head->next=create(20);
+    head->next->next=create(30);
+    display(head);
+    printf("\n");
+//Adding at the end
+    head->next->next->next=create(40);
+    display(head);
+    return 0;
+    
+}
+3) Add at the Middle:
+
+Delete in linkedlist:
+1) Delete at the front:
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+}
+void display(Node* head){
+    Node* temp=head;
+    while(temp !=NULL){
+        printf("%d ->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+}
+Node* deletenode(Node* head){
+    Node* temp=head;
+    head=temp->next;
+    free(temp);
+    return head;
+}
+int main(){
+    Node* head=create(10);
+    head->next=create(20);
+    head->next->next=create(30);
+    display(head);
+    printf("\n");
+//Adding at the end
+    head=deletenode(head);
+    display(head);
+    return 0;
+    
+}
