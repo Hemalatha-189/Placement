@@ -997,6 +997,64 @@ int main(){
 }
 3) Add at the Middle:
 
+4) Add at any position:
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+}
+void display(Node* head){
+    Node* temp=head;
+    while(temp != NULL){
+        printf("%d ->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+    
+}
+Node* insert(Node* head,int val,int pos){
+    Node* temp =(Node*)malloc(sizeof(Node));
+    temp->data=val;
+    if(pos == 1){
+        temp->next=head;
+        return temp;
+    }
+    Node* curr=head;
+    for(int i=1;i<pos-1 && curr!=NULL;i++){
+        curr= curr->next;
+    }
+    if(curr==NULL){
+        free(temp);
+        return head;
+    }
+    temp->next=curr->next;
+    curr->next=temp;
+    return head;
+    
+}
+int main(){
+    Node* head=create(10);
+    head->next=create(20);
+    head->next->next=create(30);
+    head->next->next->next=create(40);
+    display(head);
+    printf("\n");
+    head= insert(head,5,1);
+    display(head);
+    printf("\n");
+    head=insert(head,23,3);
+    display(head);
+    return 0;
+}
+
 Delete in linkedlist:
 1) Delete at the front:
 
@@ -1037,4 +1095,58 @@ int main(){
     display(head);
     return 0;
     
+}
+
+2) Delete at any pos:
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+}
+void display(Node* head){
+    Node* temp=head;
+    while(temp != NULL){
+        printf("%d ->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+    
+}
+Node* deletenode(Node* head,int pos){
+    Node* temp=head;
+    if(pos == 1){
+        head=temp->next;
+        free(temp);
+        return head;
+    }
+    
+    for(int i=1 ; i<pos-1 && temp !=NULL ; i++){
+        temp= temp->next;
+    }
+    Node* curr=temp->next;
+        temp->next= curr->next;
+        free(curr);
+        return head;
+    
+}
+int main(){
+    Node* head=create(10);
+    head->next=create(20);
+    head->next->next=create(30);
+    head->next->next->next=create(40);
+    head->next->next->next->next=create(50);
+    display(head);
+    printf("\n");
+    deletenode(head,3);
+    display(head);
+    
+    return 0;
 }
