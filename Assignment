@@ -1,4 +1,6 @@
-2) Congo line:
+2) Congo line: ( A conga line is a festive dance where people form a line, place their hands on the shoulders or waist of the person in front, and move together to rhythmic music. 
+It became popular in the United States)
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -30,8 +32,105 @@ int main(){
     head->next->next->next=create("Hema");
     display(head);
     return 0;
+ 
+}
 
-3) 
+3) scavenger hunt or treasure hunt using linked list (This is not an actual game, but a data structure simulation of a treasure hunt using linked lists.
+In a scavenger hunt, you go from one clue to another until you reach the treasure.)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct dancer{
+    char name[100];
+    struct dancer* next;
+}dancer;
+dancer* create(char name[]){
+    dancer* newnode=(dancer*)malloc(sizeof(dancer));
+     strcpy(newnode->name,name);
+     newnode->next=NULL;
+    return newnode;
+    }
+void display(dancer* head){
+    dancer* temp=head;
+    printf("Scavenger hunt:\n");
+    while(temp !=NULL){
+        printf("%s\n",temp->name);
+        temp=temp->next;
+    }
     
     
 }
+int main(){
+    dancer* head=create("Go to library");
+    head->next=create("See the historical section");
+    head->next->next=create("Take the red book");
+    head->next->next->next=create("See the 62 page");
+    display(head);
+    return 0;
+    
+    
+}
+
+4) Implementation of the hashtable using likedlist:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define size 10
+typedef struct Node{
+    int key;
+    char name[100];
+    struct Node* next;
+}Node;
+Node* hashtable[size];
+int hashfunction(int key){
+    return key % size;
+}
+void insert(int key,char name[]){
+    int i=hashfunction(key);
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->key=key;
+    strcpy(newnode->name,name);
+    if(hashtable[i]==NULL){
+        hashtable[i]=newnode;
+    }
+    else{
+        newnode->next=hashtable[i];
+        hashtable[i]=newnode;
+    }
+    printf("%d %s %d\n", key,name,i);
+    
+}
+void display() {
+    for (int j = 0; j < size; j++) {
+        printf("Index %d: ", j);
+        Node* temp = hashtable[j];
+        if (temp == NULL) {
+            printf("Empty");
+        } else {
+            while (temp != NULL) {
+                printf("(%d, %s) -> ", temp->key, temp->name);
+                temp = temp->next;
+            }
+            printf("NULL");
+        }
+        printf("\n");
+    }
+}
+int main(){
+    for(int i=0;i<size;i++){
+        hashtable[i]=NULL;
+    }
+    insert(21,"Hema");
+    insert(12,"Anupee");
+    insert(23,"Jaga");
+    insert(43,"siva");
+    display();
+    return 0;
+
+    
+}
+
+
+
