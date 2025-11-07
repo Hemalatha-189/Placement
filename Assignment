@@ -1,0 +1,37 @@
+2) Congo line:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct dancer{
+    char name[100];
+    struct dancer* next;
+}dancer;
+dancer* create(char name[]){
+    dancer* newnode=(dancer*)malloc(sizeof(dancer));
+     strcpy(newnode->name,name);
+     newnode->next=NULL;
+    return newnode;
+    }
+void display(dancer* head){
+    dancer* temp=head;
+    printf("Congo Line:\n");
+    while(temp !=NULL){
+        printf(" %s ->",temp->name);
+        temp=temp->next;
+    }
+    printf("NULL");
+    
+}
+int main(){
+    dancer* head=create("Jaga");
+    head->next=create("Anupee");
+    head->next->next=create("Siva");
+    head->next->next->next=create("Hema");
+    display(head);
+    return 0;
+
+3) 
+    
+    
+}
