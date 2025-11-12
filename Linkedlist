@@ -1173,6 +1173,7 @@ void display(Node* head){
     }
     printf("NULL");
 }
+
 int main(){
     Node* head=create(10);
     head->next=create(20);
@@ -1189,6 +1190,166 @@ int main(){
     display(head);
     
     
+    
+    return 0;
+}
+DOUBLY LINKEDLIST:
+1)Basic Program:
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+}
+void display(Node* head){
+    Node* temp=head;
+    while(temp != NULL){
+        printf("%d ->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+}
+int main(){
+    Node* head=create(10);
+    head->next=create(20);
+    head->next->next=create(30);
+    display(head);
+    printf("\n");
+      
+    return 0;
+}
+
+2) Insertion (FULL):
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node{
+    int data;
+    struct Node* prev;
+    struct Node* next;
+}Node;
+
+Node* create(int data){
+    Node* newnode = (Node*)malloc(sizeof(Node));
+    newnode->data = data;
+    newnode->prev = NULL;
+    newnode->next = NULL;
+    return newnode;
+}
+
+void display(Node* head){
+    Node* temp = head;
+    while(temp != NULL){
+        printf("%d <-> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+Node* insert(Node* head, int data){
+    Node* newnode = create(data);
+    if(head == NULL){
+        return newnode;
+    }
+
+    Node* temp = head;
+    while(temp->next != NULL){   // ✅ stop at last node
+        temp = temp->next;
+    }
+
+    temp->next = newnode;
+    newnode->prev = temp;
+
+    return head;
+}
+
+int main(){
+    Node* head = NULL;
+    head = insert(head, 10);
+    head = insert(head, 20);
+    head = insert(head, 30);
+
+    display(head);
+
+    return 0;
+}
+
+Deletion in Doubly(all):
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* prev;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->prev=NULL;
+    newnode->next=NULL;
+    return newnode;
+}
+void display(Node* head){
+    Node* temp=head;
+    while(temp !=NULL){
+        printf("%d <->", temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+}
+Node* insert(Node* head,int data){
+    Node* newnode=create(data);
+    if(head==NULL){
+        return newnode;
+    }
+    Node* temp=head;
+    while(temp ->next !=NULL){
+        temp=temp->next;
+    }
+    temp->next=newnode;
+    newnode->prev=temp;
+    return head;
+    
+}
+Node* deletenode(Node* head,int pos){
+    Node* temp=head;
+    if(pos==1){
+        head=temp->next;
+        free(temp);
+        return head;
+    }
+    for(int i=1;i<pos;i++){
+        temp=temp->next;
+    }
+    temp->prev->next=temp->next;
+    temp->next->prev=temp->prev;
+    free(temp);
+    return head;
+}
+int main(){
+    Node* head=NULL;
+    head=insert(head,10);
+    head=insert(head,20);
+    head=insert(head,30);
+    display(head);
+    printf("\n");
+    Node* newnode=create(27);
+    newnode->next=head;
+    head->prev=newnode;
+    head=newnode;
+    display(head);
+    printf("\n");
+    head=insert(head,12);
+    display(head);
     
     return 0;
 }
