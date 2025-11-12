@@ -1150,3 +1150,45 @@ int main(){
     
     return 0;
 }
+
+3) Delete at end:
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+Node* create(int data){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
+}
+void display(Node* head){
+    Node* temp=head;
+    while(temp != NULL){
+        printf("%d ->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+}
+int main(){
+    Node* head=create(10);
+    head->next=create(20);
+    head->next->next=create(30);
+    display(head);
+    printf("\n");
+    Node* temp=head;
+    while(temp->next->next != NULL){
+        temp=temp->next;
+    }
+    Node* curr=temp->next;
+    temp->next=temp->next->next;
+    free(curr);
+    display(head);
+    
+    
+    
+    return 0;
+}
