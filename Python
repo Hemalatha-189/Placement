@@ -1,1 +1,115 @@
+                    STRING
+
+1) Longest panlidromic Substring:
+
+def longestpanlindrome(s):
+    if len(s) ==1 or s=="":
+        return s
+    def expand(l,r):
+        while l>=0 and r<len(s) and s[l]==s[r]:
+            l -= 1
+            r += 1
+        return  s[l+1:r]
+
+    lon=""
+    for i in range(len(s)):
+        odd=expand(i,i)
+        even=expand(i,i+1)
+        if len(odd) > len(lon):
+            lon=odd
+        if len(even) >len(lon):
+            lon=even
+    return lon
+print(longestpanlindrome("abbaa"))
+
+2) Roman to Integer:
+
+def romantointeger(s):
+    roman={'I':1, 'V':5, 'X':10,'L':50, 'C':100,'D':500, 'M':1000}
+    t= 0
+    i=0
+    while i<len(s):
+        if i == len(s)-1 or roman[s[i]] >= roman[s[i+1]]:
+            t+= roman[s[i]]
+            i +=1
+        else:
+            t = roman[s[i+1]] - roman[s[i]]
+            i+=2
+        
+    return t
+print(romantointeger("VI"))  
+
+3) ASCII TO BINARY:
+
+def atoi(s):
+    s=s.strip()
+    if not s:
+        return 0
+    sign= 1
+    i=0
+    res=0
+    if s[i]=='-':
+        sign= -1
+        i += 1
+    elif s[i]=='+':
+        i +=1
+    while i <len(s) and s[i].isdigit():
+        res = res*10 +(ord(s[i])-ord('0'))
+        i +=1
+    return sign * res
+print(atoi("  -13456"))
+
+4) STRSTR
+
+def atoi(haystack,needle):
+    n=len(haystack)
+    m=len(needle)
+    if needle == "":
+        return 0
+    for i in range(n-m+1):
+        if haystack[i:i+m]==needle:
+            return i
+    return -1 
+        
+print(atoi("leetcode",'leeto'))
+
+5) Longest Common substring:
+
+def longestcommon(s):
+    if not s:
+        return ""
+    prefix=s[0]
+    for s in s[1:]:
+        while not s.startswith(prefix):
+            prefix=prefix[:-1]
+            if prefix=="":
+                return ""
+    return prefix
+print(longestcommon(["flower", "flow", "flight"]))
+
+6)  String Manipulation (Find Maximum String Length)
+
+def longest(arr):
+    lon=arr[0]
+    lonl=len(arr[0])
+    for i in range(len(arr)): 
+        if len(arr[i]) > lonl:
+            lon=arr[i]
+            lonl=len(arr[i])
+    return lon,lonl
+print(longest(["hema","indu","jagadeesh","anupee","siva"]))
+
+7) Missing number:
+
+def longest(arr,n):
+    xor1=0
+    xor2=0
+    for num in arr:
+        xor2 ^= num
+    for i in range(1,n+1):
+        xor1 ^=i 
+    return xor1 ^ xor2
+            
+print(longest([1,2,3,5],5))
+
 
