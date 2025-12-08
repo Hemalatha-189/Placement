@@ -112,4 +112,76 @@ def longest(arr,n):
             
 print(longest([1,2,3,5],5))
 
+                                      ARRAY
+1) Maximum and minimum
+def findarray(arr):
+    n=len(arr)
+    maxx=0
+    minn=0
+    for i in range(n):
+        if  arr[i] > maxx:
+            maxx=arr[i]
+        elif arr[i] < minn:
+            minn =arr[i]
+    return maxx,minn
+print(findarray([1,4,3,-5,-4,8,6]))
+
+2) Third largest:
+
+class Solution:
+    def thirdLargest(self,arr):
+       x=max(arr)
+       arr.remove(x)
+       x=max(arr)
+       arr.remove(x)
+       return max(arr)
+or
+
+def findarray(arr):
+    n = len(arr)
+
+    # 1st max
+    max1 = arr[0]
+    for i in range(n):
+        if arr[i] > max1:
+            max1 = arr[i]
+
+    # remove 1st max manually
+    new_arr = []
+    removed = False
+    for x in arr:
+        if x == max1 and not removed:
+            removed = True
+            continue
+        new_arr.append(x)
+    arr = new_arr
+
+    # 2nd max
+    max2 = arr[0]
+    for i in range(len(arr)):
+        if arr[i] > max2:
+            max2 = arr[i]
+
+    # remove 2nd max manually
+    new_arr = []
+    removed = False
+    for x in arr:
+        if x == max2 and not removed:
+            removed = True
+            continue
+        new_arr.append(x)
+    arr = new_arr
+
+    # 3rd max
+    max3 = arr[0]
+    for i in range(len(arr)):
+        if arr[i] > max3:
+            max3 = arr[i]
+
+    return max3
+
+
+print(findarray([1,4,3,-5,-4,8,6]))
+
+
 
