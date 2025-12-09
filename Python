@@ -183,5 +183,80 @@ def findarray(arr):
 
 print(findarray([1,4,3,-5,-4,8,6]))
 
+3) Check if array is sorted and rotated:
+
+def check(self, nums: List[int]) -> bool:
+        count =0
+        for i in range(len(nums)):
+            if nums[i] > nums[(i+1) % len(nums)]:
+                count +=1
+        return count <=1
+
+4) Second largest:
+
+def secondlargest(arr):
+    n=len(arr)
+    maxx=0
+    for i in range(n):
+        if arr[i] > maxx:
+            maxx=arr[i]
+    arr.remove(maxx)
+    return max(arr)
+print(secondlargest([12,23,25,27]))
+
+5) Linear search:
+
+def secondlargest(arr,target):
+    n=len(arr)
+    for i in range(n):
+        if arr[i] == target:
+            return i
+    return False
+print(secondlargest([2,3,4,5,3], 3))
+
+6) Left rotate of element by one place:
+
+def secondlargest(arr):
+    n=len(arr)
+    t=arr[0]
+    l=[]
+    for i in range(1,n):
+        l.append(arr[i])
+    l.append(t)
+    return l
+print(secondlargest([1,2,3,4,5]))
+
+7) maximum consecutive ones:
+
+def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        n=len(nums)
+        count=0
+        maxi=0
+        for i in range(n):
+            if nums[i] == 1:
+         class Solution:       count +=1
+                
+            else:
+                maxi=max(maxi,count)
+                count=0   
+        return max(maxi,count)
+            
+ 8) Move zeros to end:
+
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        n=len(nums)
+        j=0
+        for i in range(n):
+            if nums[i] != 0:
+                nums[i],nums[j] = nums[j],nums[i]
+                j +=1
+        return nums
+        
+
+        
+        
+        
+
 
 
